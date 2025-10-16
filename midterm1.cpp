@@ -69,32 +69,45 @@ public:
             temp->next->prev = newNode; // make it so the node that was after temp now is linked prev to newNode, so it now is after newNode
         else // check if the temp node was the tail
             tail = newNode; // if so set the newNode to be the tail
-        temp->next = newNode;
+        temp->next = newNode; // now link the given position node next to the newNode
     }
 
+    // delete the given value if found in the list
     void delete_val(int value) {
+        // if list is empty just exit the function
         if (!head) return;
 
+        // start walking from the head
         Node* temp = head;
         
+        // walk until the value is found (or list is done)
         while (temp && temp->data != value)
-            temp = temp->next;
+            temp = temp->next; // move to next
 
+        // if youve gone through the list and havent found the value, then exit the function without deleting anything
         if (!temp) return; 
 
+        // temp is not the head link the previous node to the next node (essentially cut the temp nodes connections)
         if (temp->prev)
             temp->prev->next = temp->next;
+
+        // if it is the head, then move the head up to the next
         else
             head = temp->next; 
 
+        // if temp is not tail, link next node to previous node (as in said before cut the temp node connections)
         if (temp->next)
             temp->next->prev = temp->prev;
+        
+        // if it is the tail then move the tail back one
         else
             tail = temp->prev; 
 
+        // free the temp node, removing it from the list now that its connections are cut
         delete temp;
     }
 
+    // delete the node at given poisition
     void delete_pos(int pos) {
         if (!head) {
             cout << "List is empty." << endl;
