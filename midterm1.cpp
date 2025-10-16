@@ -30,35 +30,45 @@ public:
     // default constructor, gives you an empty list start
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    
+    // insert new node with given value after the node at given position
     void insert_after(int value, int position) {
+        // first check for negative position, if  position is negative then tell the user and exit the function (without adding the given value anywhere)
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
             return;
         }
 
+        // allocate new node with the given value
         Node* newNode = new Node(value);
+        // if thelist is empty than the new node is now both the head and the tail
         if (!head) {
             head = tail = newNode;
+            // exit the function after setting the node as both head and tail
             return;
         }
 
+        // temp node starting at the head used to walk through the list until you reach the given position
         Node* temp = head;
+        // loop until you reach given position (and as long as temp exists and is not null)
         for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+            temp = temp->next; // move to next
 
+        // if the position is longer than the list, than dont add the node and exit the function
         if (!temp) {
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
+            delete newNode;  // free the node created previously
+            return; // exit the function
         }
 
+        // link the newNode next to node that was after the temp node (which is now at the position we want to insert after)
         newNode->next = temp->next;
+        // link the newNode prev to the temp node (which is at the position we need the newNode to be directly after)
         newNode->prev = temp;
+        // check if the temp node was not the tail node
         if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
+            temp->next->prev = newNode; // make it so the node that was after temp now is linked prev to newNode, so it now is after newNode
+        else // check if the temp node was the tail
+            tail = newNode; // if so set the newNode to be the tail
         temp->next = newNode;
     }
 
