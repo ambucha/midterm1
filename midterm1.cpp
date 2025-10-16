@@ -156,58 +156,70 @@ public:
     void push_back(int v) {
         // create newNode with given value v
         Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+        // if list is empty
+        if (!tail) 
+            head = tail = newNode; // set the newNode to be both the head and the tail
+        else { // if list is not empty
+            tail->next = newNode; // link the old tail next to the new node
+            newNode->prev = tail; // link new node prev back to old tail
+            tail = newNode; // set the tail to be the new node
         }
     }
     
+    // add value to the front of the list
     void push_front(int v) {
+        // create new ndoe with given value v
         Node* newNode = new Node(v);
+        // if list is empty
         if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            head = tail = newNode; // set the newnode to be both the head and tail
+        else { // if list is not empty
+            newNode->next = head; //link newNode next to the old head
+            head->prev = newNode; // link old head prev back to the newNode
+            head = newNode; // move head pointer to the new head, newNode
         }
     }
     
+    // remvoe the head from list
     void pop_front() {
 
+        // check if list is empty
         if (!head) {
-            cout << "List is empty." << endl;
-            return;
+            cout << "List is empty." << endl; // ouput the list is empty
+            return; // exit
         }
 
+        // save current head
         Node * temp = head;
 
+        // if the list is more than just the head node
         if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+            head = head->next; // move to the next node
+            head->prev = nullptr; // the new head now is prev linked to nothing
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else // if head is the only node
+            head = tail = nullptr; // make the list empty
+        delete temp; // free the old head
     }
 
+    // remove the tail from list
     void pop_back() {
+        // check if list is empty
         if (!tail) {
-            cout << "List is empty." << endl;
-            return;
+            cout << "List is empty." << endl; // output list is empty
+            return; //  exit
         }
+        // save current tail
         Node * temp = tail;
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        // check if there are more nodes or if its just the tail node
+        if (tail->prev) { 
+            tail = tail->prev; // mvoe the tail back a node
+            tail->next = nullptr; // link new tail to nullptr
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else // if the list is just a node
+            head = tail = nullptr; // wipe the list and make it empty
+        delete temp; // free the old tail 
     }
 
     ~DoublyLinkedList() {
