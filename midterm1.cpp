@@ -109,43 +109,52 @@ public:
 
     // delete the node at given poisition
     void delete_pos(int pos) {
+        // check if list is empty
         if (!head) {
-            cout << "List is empty." << endl;
-            return;
+            cout << "List is empty." << endl; // output the list is empty
+            return; // exit the function
         }
     
+        // looks like we are treating the 1 as the first position, if position 1 is input then delete the head
         if (pos == 1) {
-            pop_front();
-            return;
+            pop_front(); // call the pop_front() function in order to remove the head node
+            return; // exit the function after popping the head
         }
     
+        // start walking from the head
         Node* temp = head;
     
+        // starting at 1 walk to the given position node
         for (int i = 1; i < pos; i++){
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
+            // if we no longer have enough nodes for the given  position (so the position was longer than the list length) 
+            if (!temp) {  
+                cout << "Position doesn't exist." << endl; // output that the position does not exist
+                return; // exit without deleting anything
             }
-            else
-                temp = temp->next;
+            else 
+                temp = temp->next; // if position exists keep walking and go to the next node
         }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
+        if (!temp) { // once again check if the position exists
+            cout << "Position doesn't exist." << endl; // if does not exist output statement
+            return; // exit wihtout deleting anything
         }
     
+        // check if temp is the tail
         if (!temp->next) {
-            pop_back();
-            return;
+            pop_back(); // if it is the tail call the pop_back() function to remove the tail
+            return; // exit 
         }
     
+        // keep pointer previous to temp
         Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        tempPrev->next = temp->next; // link previous node to temp, to the node after temp
+        temp->next->prev = tempPrev; // link the node after temp back to the node prev to temp
+        delete temp; // free temp node
     }
 
+    // add value to the end of the list (add a new tail)
     void push_back(int v) {
+        // create newNode with given value v
         Node* newNode = new Node(v);
         if (!tail)
             head = tail = newNode;
