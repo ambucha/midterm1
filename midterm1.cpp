@@ -264,10 +264,55 @@ public:
         }
         cout << endl; // output newline
     }
+
+    // New function every_other_element()
+    void every_other_element() {
+        // Start at the head
+        Node* current = head;
+        //check if the list is empty
+        if(!current) {
+            //output that the list is empty
+            cout << "List is empty." << endl;
+            return; // exit
+        }
+        // while the list is not empty
+        while(current) {
+            cout << current->data << " "; // output current nodes data value
+            // we need to walk to every other node isntead of the next so check if the next node will be empty'
+            if(current->next) {
+                // now if this exists we will set the node after the next to be the new current ndoe
+                current = current->next->next;
+            }
+            // if not then we are just done
+            else {
+                current = nullptr;
+            }
+        }
+        // output new line
+        cout << endl;
+    }
 };
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    cout << endl;
+
+    // build a test list
+    DoublyLinkedList list;
+    // imma just use push_back function a bunnch for this list
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
+    list.push_back(6);
+    list.push_back(7);
+    list.push_back(8);
+
+    // ok now test to see if the every other functino is working
+    cout << "Every other element:" << endl;
+    list.every_other_element();
+
 
     return 0;
 }
