@@ -222,37 +222,47 @@ public:
         delete temp; // free the old tail 
     }
 
+    // destructor
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        // while the list has nodes in it
+        while (head) { 
+            Node* temp = head; // save current head
+            head = head->next; // move the head by one
+            delete temp; // delete the old head
         }
-    }
-    void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
-        }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
+        // this should walk through the list and delete every node
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
-            cout << "List is empty." << endl;
-            return;
+    // print the list from head to tail
+    void print() {
+        // start at the head
+        Node* current = head;
+        if (!current) { // check if the list is empty
+            cout << "List is empty." << endl; // output thtat the list is empty
+            return; // exit
         }
+        // walk through the list until it is empty
         while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+            cout << current->data << " "; // output the current nodes data value
+            current = current->next; // move to the next node
         }
-        cout << endl;
+        cout << endl; // outpout newline after the printed list
+    }
+
+    // print the lsit from tail to head
+    void print_reverse() {
+        // start at the tail
+        Node* current = tail;
+        if (!current) { // check if list is empty
+            cout << "List is empty." << endl; // output that the list is empty
+            return; // exit
+        }
+        // while the list is not empty (walk backwrds through list until its empty)
+        while (current) {
+            cout << current->data << " "; // output the current nodes data value
+            current = current->prev; // move to the previous node
+        }
+        cout << endl; // output newline
     }
 };
 
